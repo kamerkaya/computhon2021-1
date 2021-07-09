@@ -7,6 +7,7 @@
 #include <unordered_set>
 #include <iomanip>
 #include <omp.h>
+#include <chrono>
 using namespace std;
 
 
@@ -16,7 +17,8 @@ struct CSR {
   int *_xadj;
   int *_adj;
   int *_is;
-  CSR(int n, int m, int* xadj, int* adj, int* is): _n(n), _m(m), _xadj(xadj), _adj(adj), _is(is){}
+  CSR(int n, int m, int* xadj, int* adj, int* is):
+    _n(n), _m(m), _xadj(xadj), _adj(adj), _is(is){}
 };
 
 CSR create_csr_from_file(string filename);
@@ -39,6 +41,7 @@ int main(int argc, char *argv[]){
   // jaccard_values[j] = Jaccard between vertices (a, b) where adj[j] = b and adj[a] < j < adj[a+1]
   // i.e. the edge located in index j of the adj array
 
+  auto start = chrono::steady_clock::now();
   /////// BEGIN CALCULATION CODE
   for (int u = 0; u < n; u++){
     for (int v_ptr = xadj[u]; v_ptr < xadj[u+1]; v_ptr++){ 
@@ -61,7 +64,10 @@ int main(int argc, char *argv[]){
     }
   }
   /////// END CALCULATION CODE
-  cout << "Finished calculating the Jaccards" << endl;
+  auto end = chrono::steady_clock::now();
+  auto diff = end - start;
+
+  cout << "Finished calculating the Jaccards in " << chrono::duration <double> (diff).count() << " seconds" << endl;
 
   print_jaccards(output_file, n, xadj, adj, jaccard_values);
   cout << "Finished printing the Jaccards" << endl;
