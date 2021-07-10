@@ -8,7 +8,7 @@
 
 
 ## Parameters for the entire job
-#SBATCH --account=kkaya # Specify your TRUBA account
+#SBATCH --account=<account> # Specify your TRUBA account
 #SBATCH --job-name=gputest # The name of the job you see in `squeue` output
 #SBATCH --partition=akya-cuda # Partition of servers used
 #SBATCH --reservation=computhon # Servers reserved for the people in the competition only!

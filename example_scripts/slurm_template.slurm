@@ -12,7 +12,6 @@
 
 ## Resources used by complete job
 #SBATCH --nodes=<num_servers> # Number of nodes (servers) reserved for the job
-#SBATCH --ntasks=<num_mpi_procs> # Maximum number of tasks (MPI processes) that will be used by the job
 
 ## Resources used on each server
 #SBATCH --gres=gpu:<num_gpus> # Number of GPUs reserverd per node
@@ -23,7 +22,7 @@
 
 # Setup the environment
 module purge
-module load centos7.3/comp/gcc/9.2
+module load centos7.3/comp/gcc/7
 module load centos7.3/lib/cuda/10.1
 module load centos7.3/lib/openmpi/1.8.8-gcc-4.8.5
 
@@ -31,5 +30,4 @@ module load centos7.3/lib/openmpi/1.8.8-gcc-4.8.5
 g++ jaccard.cpp -o exe
 
 # Execute with input file and output
-srun ./exe g0.txt out.txt
-
+srun ./exe example_graphs/g0.txt out.txt

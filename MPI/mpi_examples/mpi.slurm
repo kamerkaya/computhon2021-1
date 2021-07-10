@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH -A takyildiz #your_user_account
+#SBATCH -A <account> #your_user_account
 ##SBATCH --res=computhon
 #SBATCH -J mpi-example
 #SBATCH -N 2 #number of nodes to be used

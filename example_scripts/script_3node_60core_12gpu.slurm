@@ -2,7 +2,7 @@
 
 ################
 # Job will use 3 nodes (--nodes=3). It will run 3 tasks (MPI process) in total 
-# (--ntasks=3), and will run 1 task at most on each node (--ntasks-per-node=1).
+# (--ntasks-per-node=1 * 3 nodes), and will run 1 task at most on each node (--ntasks-per-node=1).
 # It and will use four GPUs on each node (--gres=gpu:4) for a total of 12 GPUS for
 # the entire job (4*3). It will use 20 cores for each task (--cpus-per-task=20) 
 # for a total of 60 cores for the entire job (3*20).
@@ -10,7 +10,7 @@
 
 
 ## Parameters for the entire job
-#SBATCH --account=aalabsialjundi # Specify your TRUBA account
+##SBATCH --account=aalabsialjundi # Specify your TRUBA account
 #SBATCH --job-name=jaccard # The name of the job you see in `squeue` output
 #SBATCH --partition=akya-cuda # Partition of servers used
 #SBATCH --reservation=computhon # Servers reserved for the people in the competition only!
@@ -21,7 +21,6 @@
 
 ## Resources used by complete job
 #SBATCH --nodes=3 # Number of nodes (servers) reserved for the job
-#SBATCH --ntasks=3 # Maximum number of tasks (MPI processes) that will be used by the job
 
 ## Resources used on each server
 #SBATCH --gres=gpu:4 # Number of GPUs reserverd per node
@@ -32,7 +31,7 @@
 
 # Setup the environment
 module purge
-module load centos7.3/comp/gcc/9.2
+module load centos7.3/comp/gcc/7
 module load centos7.3/lib/cuda/10.1
 module load centos7.3/lib/openmpi/1.8.8-gcc-4.8.5
 
@@ -41,5 +40,5 @@ g++ jaccard.cpp -o exe
 
 # Execute with input file and output
 
-mpirun ./exe g0.txt out.txt
+mpirun ./exe example_graphs/g0.txt out.txt
 
