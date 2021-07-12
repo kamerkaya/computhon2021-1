@@ -34,7 +34,7 @@ module load centos7.3/lib/cuda/10.1
 module load centos7.3/lib/openmpi/1.8.8-gcc-4.8.5
 
 # Compile the code
-g++ jaccard.cpp -o exe
+g++ -O3 jaccard.cpp -o exe
 
 # Execute with input file and output
 srun ./exe example_graphs/g0.txt out.txt
